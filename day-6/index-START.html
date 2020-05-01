@@ -63,7 +63,7 @@
           // find whaterver it match in the regex
           const regex = new RegExp(this.value, 'gi');
 
-          // replace with
+          // replace regex with the span with highligter color class
           const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
           const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
 
