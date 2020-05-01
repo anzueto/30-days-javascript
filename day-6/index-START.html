@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+    <form class="search-form">
+      <input type="text" class="search" placeholder="City or State">
+      <ul class="suggestions">
+        <li>Filter for a city</li>
+        <li>or a state</li>
+      </ul>
+    </form>
+    <script>
+      const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+
+      const cities = [];
+
+
+      // fetch will return a promise
+      fetch(endpoint)
+        // the blob data needs to be converted into Json
+        .then(blob => blob.json())
+        // return another promise
+        // spread operator includes all previous cities
+        .then(data => cities.push(...data))
+
+      function findMatches(wordToMatch, cities) {
+        return cities.filter(place => {
+          //here we need to figure out if the city or state matches what was searched
+
+
+          // create a regex variable expression
+          // g = global
+          // i = insensitive
+          const regex = new RegExp(wordToMatch, 'gi');
+
+          // check if the city or state matches
+          return place.city.match(regex) || place.state.match(regex);
+        });
+      }
+
+
+
+
+      // function for whenever someone changes the input search
+      function displayMatches() {
+        console.log(this.value);
+        const matchArray = findMatches(this.value, cities);
+
+        //get data first
+        console.log(matchArray);
+
+        //loop over
+        const html = matchArray.map(place => {
+
+          // find whaterver it match in the regex
+          const regex = new RegExp(this.value, 'gi');
+
+          // replace with
+          const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+          const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+
+          //from each of those while looping, return a list item
+          return `
+          <li>
+            <span class="name">${cityName}, ${stateName}</span>
+            <span class="population">${place.population}</span>
+          </li>
+          `;
+
+          // because we use map method we need to joing to create on big string
+        }).join('');
+
+        suggestions.innerHTML = html;
+      }
+
+      // select input that we are working
+      const searchInput = document.querySelector('.search');
+      const suggestions = document.querySelector('.suggestions');
+
+      searchInput.addEventListener('change', displayMatches);
+
+      // whenver you are done typing in the search input
+      searchInput.addEventListener('keyup', displayMatches);
+
+
+    </script>
+  </body>
+
+</html>
