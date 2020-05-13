@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Array Cardio 💪💪</title>
+  </head>
+
+  <body>
+    <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+    <script>
+      // ## Array Cardio Day 2
+
+      const people = [
+        { name: 'Wes', year: 1988 },
+        { name: 'Kait', year: 1986 },
+        { name: 'Irv', year: 1970 },
+        { name: 'Lux', year: 2015 }
+      ];
+
+      const comments = [
+        { text: 'Love this!', id: 523423 },
+        { text: 'Super good', id: 823423 },
+        { text: 'You are the best', id: 2039842 },
+        { text: 'Ramen is my fav food ever', id: 123523 },
+        { text: 'Nice Nice Nice!', id: 542328 }
+      ];
+
+
+
+
+
+
+
+
+      // Some and Every Checks
+      // Array.prototype.some() // is at least one person 19 or older?
+
+      //.some will check if something is at least true in your array
+
+      /*
+      const isAdult = people.some(function (person) {
+        //get current year
+        const currentYear = (new Date()).getFullYear();
+        if (currentYear - person.year >= 19) {
+          return true
+        }
+      });
+      */
+
+      // a more simple solution to some method
+      const isAdult = people.some(person => {
+        const currentYear = (new Date()).getFullYear();
+        return currentYear - person.year >= 19;
+      })
+
+      console.log({ isAdult });
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // Array.prototype.every() // is everyone 19 or older?
+
+      // .every will check if every person is at least 19
+
+      const allAdults = people.every(person => (new Date()).getFullYear() - person.year >= 19);
+      console.log({ allAdults }); // gives us false because not every single item in the array is going to meet our criteria
+
+
+
+
+
+
+
+
+
+
+
+      // Array.prototype.find() === this will return the first item that it finds
+      // Find is like filter, but instead returns just the one you are looking for
+      // find the comment with the ID of 823423
+
+
+      /*
+           const comment = comments.find(function (comment) {
+             if (comment.id === 823423) {
+               return true;
+             }
+           });
+      */
+
+      // Jose Version ---- simple version with arrow function and ternirary if else statement
+      // const comment = comments.find(comment => comment.id === 823423 ? true : false);
+
+      // wes version ---- since this a  true or false statement we dont need if and else
+      const comment = comments.find(comment => comment.id === 823423);
+
+      console.log(comment);
+
+
+
+
+
+
+
+
+      // Array.prototype.findIndex() ---- find where something is inside of the array
+      // Find the comment with this ID
+      // delete the comment with the ID of 823423
+
+      const index = comments.findIndex(comment => comment.id === 823423);
+      console.log(index);
+
+      // one way to delete from array
+      comments.splice(index, 1);
+
+
+
+      // in redux world create a new array of the updated comments
+      const newComments = [
+
+        // ... spread operator adds the items into the new array
+        ...comments.slice(0, index), // start at zero and go until the index
+        ...comments.slice(index + 1)
+      ]
+
+
+
+    </script>
+  </body>
+
+</html>
