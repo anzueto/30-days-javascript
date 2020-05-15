@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Console Tricks!</title>
+  </head>
+
+  <body>
+
+    <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+    <script>
+      const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+      function makeGreen() {
+        const p = document.querySelector('p');
+        p.style.color = '#BADA55';
+        p.style.fontSize = '50px';
+      }
+
+      // Regular
+      console.log('hello')
+
+      // Interpolated
+
+      console.log('hello i am a $s string', 'emoji');
+
+      console.log(`hello im a string`);
+
+      // Styled
+      console.log('%c i am some great text', 'font-size:32px; background:red;');
+
+      // warning!
+
+      // this will tell our stack, traces where it got called.
+      console.warn('Oh noo!!!');
+
+      // Error :|
+
+      // display a stack trace of error in the console
+      console.error('Oh noo!!!');
+
+      // Info
+
+      console.info('crocodile eat 3 - 4 people a year');
+      // Testing
+
+      const p = document.querySelector('p');
+
+      // you can test for something anf if is false it will send you a message through the console.
+      // console.assert(p.classList.contains('ouch'), 'that is wrong1!');
+
+
+
+      // this will only appear if the statement is false
+      console.assert(1 === 1, 'that is wrong number');
+
+      // clearing
+
+      // if you really want to mess with another developer
+      // put this line at the end of the code.
+      console.clear();
+
+      // Viewing DOM Elements
+
+      console.log(p)
+
+      // this will allow to see the methodds that live in that element
+      console.dir(p)
+
+
+
+      // Grouping together
+      dogs.forEach(dog => {
+        console.group(`${dog.name}`);
+
+        console.log(`this is ${dog.name}`);
+        console.log(`${dog.name} is ${dog.age} years old`)
+        console.log(`${dog.name} is ${dog.age * 7} dog years old `)
+
+        console.groupEnd(`${dog.name}`);
+      })
+
+
+      // counting
+
+      console.count('jose');
+      console.count('jose');
+      console.count('jose');
+      console.count('jose');
+      console.count('jose');
+
+      // timing
+      // to see how long something takes
+
+      console.time('fetching data');
+      fetch('https://api.github.com/users/wesbos')
+        .then(data => data.json())
+        .then(data => {
+          console.timeEnd('fetching data');
+          console.log(data);
+
+        })
+
+
+
+      console.table(dogs)
+
+
+    </script>
+  </body>
+
+</html>
